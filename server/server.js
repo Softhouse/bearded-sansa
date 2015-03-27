@@ -14,10 +14,12 @@ app.get('/kalle', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    backend.get('http://sitewatcher/api/employees/', function (data, response) {
+    backend.get('http://xyz.softhouse/api/employees/', function (data, response) {
         if (data.length) {
             res.send(data);
         }
+    }, {
+        'Cookie': req.header('cookie')  // forward authentication cookie
     });
 });
 
