@@ -14,9 +14,11 @@ app.get('/kalle', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.send([{"dummyCv": "Dummy CV information 1"}, {"dummyCv": "Dummy CV information 2"}]);
-    //Support for search
-    //e.g. GET /employees/me?id=1234
+    backend.get('http://localhost:3232/employees/', function (data, response) {
+        if (data.length) {
+            res.send(data);
+        }
+    });
 });
 
 app.get('/me', function (req, res) {
@@ -25,18 +27,23 @@ app.get('/me', function (req, res) {
             res.send(data[0]);
         }
         else {
-            res.status(404);
-            res.send({error: 'Who are you?'});
+            res.status(404).send({error: 'Who are you?'});
         }
     });
 
 });
 
 app.get('/:email', function (req, res) {
-    res.send({"dummyCv": "Dummy CV information"});
-    //Support for search
-    //e.g. GET /employees/me?id=1234
-    console.log(req.params.email)
+    var email = req.params.email;
+    backend.get('http://localhost:3232/employees/?email=' + email, function (data, response) {
+        if (data.length) {
+            res.send(data[0]);
+        }
+        else {
+            res.status(404);
+            res.send({error: 'Employee not found: ' + email});
+        }
+    });
 });
 
 var server = app.listen(9000, function () {
