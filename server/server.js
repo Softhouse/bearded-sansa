@@ -20,7 +20,14 @@ app.get('/', function(req, res) {
 app.get('/me', function(req, res) {
 	res.send({"dummyCv":"Dummy CV information"});
 	//Support for getting a specific attribute
-	//e.g. GET /employees/me?attribute=emial
+	//e.g. GET /employees/me?attribute=email	
+});
+
+app.get('/:email', function(req, res) {
+	res.send({"dummyCv":"Dummy CV information"});
+	//Support for search
+	//e.g. GET /employees/me?id=1234
+	console.log(req.params.email)
 });
 
 var server = app.listen(9000, function () {
