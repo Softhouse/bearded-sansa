@@ -1,7 +1,8 @@
-{ 
-	"name" : "employees",
-	"dependencies" : { 
-		"express": "^4.4.5"
-	},
-    "repository": {}
+{
+  "name": "employees",
+  "dependencies": {
+    "express": "^4.4.5",
+    "node-rest-client": "~1.4.4"
+  },
+  "repository": {}
 }

@@ -1,3 +1,6 @@
+var Client = require('node-rest-client').Client;
+var backend = new Client();
+
 var path = require('path');
 var express = require('express');
 var app = express();
@@ -18,6 +21,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/me', function(req, res) {
+    backend.get('')
+
 	res.send({"dummyCv":"Dummy CV information"});
 	//Support for getting a specific attribute
 	//e.g. GET /employees/me?attribute=email	
