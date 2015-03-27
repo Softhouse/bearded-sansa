@@ -31,6 +31,8 @@ app.get('/me', function (req, res) {
         else {
             res.status(404).send({error: 'Who are you?'});
         }
+    }, {
+        'Cookie': req.header('cookie')  // forward authentication cookie
     });
 
 });
@@ -45,6 +47,8 @@ app.get('/:email', function (req, res) {
             res.status(404);
             res.send({error: 'Employee not found: ' + email});
         }
+    }, {
+        'Cookie': req.header('cookie')  // forward authentication cookie
     });
 });
 
