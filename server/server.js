@@ -15,11 +15,7 @@ app.get('/kalle', function (req, res) {
 
 app.get('/', function (req, res) {
     backend.get('http://xyz.softhouse.se/api/employees/', function (data, response) {
-        if (data.length) {
-            res.send(data);
-        }
-    }, {
-        'Cookie': req.header('cookie')  // forward authentication cookie
+        res.send(data);
     });
 });
 
@@ -31,8 +27,6 @@ app.get('/me', function (req, res) {
         else {
             res.status(404).send({error: 'Who are you?'});
         }
-    }, {
-        'Cookie': req.header('cookie')  // forward authentication cookie
     });
 
 });
@@ -47,8 +41,6 @@ app.get('/:email', function (req, res) {
             res.status(404);
             res.send({error: 'Employee not found: ' + email});
         }
-    }, {
-        'Cookie': req.header('cookie')  // forward authentication cookie
     });
 });
 
