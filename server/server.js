@@ -26,12 +26,18 @@ app.put('/me', function (req, res) {
     backend.get('http://xyz.softhouse.se/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
         if (data.length) {
             var id = data[0]._id;
-            backend.put('http://xyz.softhouse.se/api/employees/' + id, {data: req.body}, function (data, response) {
+            backend.put('http://xyz.softhouse.se/api/employees/' + id, {
+                data: req.body,
+                headers: {"Content-Type": "application/json"}
+            }, function (data, response) {
                 res.send(data);
             });
         }
         else {
-            backend.post('http://xyz.softhouse.se/api/employees/', {data: req.body}, function (data, response) {
+            backend.post('http://xyz.softhouse.se/api/employees/', {
+                data: req.body,
+                headers: {"Content-Type": "application/json"}
+            }, function (data, response) {
                 res.send(data);
             });
         }
@@ -53,10 +59,9 @@ app.get('/me', function (req, res) {
 });
 
 app.get('/:email', function (req, res) {
-    
+
     var email = req.params.email;
-    if (req.headers['x-forwarded-email'] != email)
-    {
+    if (req.headers['x-forwarded-email'] != email) {
         res.status(401).send({error: 'Unauthorized'});
     }
     backend.get('http://xyz.softhouse.se/api/employees/?email=' + email, function (data, response) {
