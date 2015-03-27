@@ -53,7 +53,12 @@ app.get('/me', function (req, res) {
 });
 
 app.get('/:email', function (req, res) {
+    
     var email = req.params.email;
+    if (req.headers['x-forwarded-email'] != email)
+    {
+        res.status(401).send({error: 'Unauthorized'});
+    }
     backend.get('http://xyz.softhouse.se/api/employees/?email=' + email, function (data, response) {
         if (data.length) {
             res.send(data[0]);
