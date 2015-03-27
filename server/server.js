@@ -3,8 +3,10 @@ var backend = new Client();
 
 var path = require('path');
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
+app.use(bodyParser.json());
 app.use('/docs', express.static(path.join(__dirname, 'dist/')));
 
 app.get('/kalle', function (req, res) {
@@ -18,6 +20,25 @@ app.get('/', function (req, res) {
         res.send(data);
     });
 });
+
+app.put('/me', function (req, res) {
+    req.body.email = req.headers['x-forwarded-email'];
+    backend.get('http://xyz.softhouse.se/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
+        if (data.length) {
+            var id = data[0]._id;
+            backend.put('http://xyz.softhouse.se/api/employees/' + id, {data: req.body}, function (data, response) {
+                res.send(data);
+            });
+        }
+        else {
+            backend.post('http://xyz.softhouse.se/api/employees/', {data: req.body}, function (data, response) {
+                res.send(data);
+            });
+        }
+    });
+
+});
+
 
 app.get('/me', function (req, res) {
     backend.get('http://xyz.softhouse.se/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
