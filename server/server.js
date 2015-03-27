@@ -2,9 +2,6 @@ var path = require('path');
 var express = require('express');
 var app = express();
 
-// You probably want to change 'dist/' to '../dist/' for production
-app.use('/', express.static(path.join(__dirname, 'dist/')));
-
 app.get('/kalle', function(req, res) {
     console.log("ASD");
 
@@ -25,8 +22,7 @@ app.get('/me', function(req, res) {
 
 app.get('/:email', function(req, res) {
 	res.send({"dummyCv":"Dummy CV information"});
-	//Support for search
-	//e.g. GET /employees/me?id=1234
+	//Support for search email
 	console.log(req.params.email)
 });
 
