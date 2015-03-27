@@ -14,7 +14,7 @@ app.get('/kalle', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    backend.get('http://xyz.softhouse/api/employees/', function (data, response) {
+    backend.get('http://xyz.softhouse.se/api/employees/', function (data, response) {
         if (data.length) {
             res.send(data);
         }
