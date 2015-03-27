@@ -14,7 +14,7 @@ app.get('/kalle', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    backend.get('http://localhost:3232/employees/', function (data, response) {
+    backend.get('http://xyz.softhouse.se/api/employees/', function (data, response) {
         if (data.length) {
             res.send(data);
         }
@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/me', function (req, res) {
-    backend.get('http://localhost:3232/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
+    backend.get('http://xyz.softhouse.se/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
         if (data.length) {
             res.send(data[0]);
         }
@@ -35,7 +35,7 @@ app.get('/me', function (req, res) {
 
 app.get('/:email', function (req, res) {
     var email = req.params.email;
-    backend.get('http://localhost:3232/employees/?email=' + email, function (data, response) {
+    backend.get('http://xyz.softhouse.se/api/employees/?email=' + email, function (data, response) {
         if (data.length) {
             res.send(data[0]);
         }
