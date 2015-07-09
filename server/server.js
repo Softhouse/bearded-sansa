@@ -16,17 +16,17 @@ app.get('/kalle', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    backend.get('http://xyz.softhouse.se/api/employees/', function (data, response) {
+    backend.get('http://xyz/api/employees/', function (data, response) {
         res.send(data);
     });
 });
 
 app.put('/me', function (req, res) {
     req.body.email = req.headers['x-forwarded-email'];
-    backend.get('http://xyz.softhouse.se/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
+    backend.get('http://xyz/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
         if (data.length) {
             var id = data[0]._id;
-            backend.put('http://xyz.softhouse.se/api/employees/' + id, {
+            backend.put('http://xyz/api/employees/' + id, {
                 data: req.body,
                 headers: {"Content-Type": "application/json"}
             }, function (data, response) {
@@ -34,7 +34,7 @@ app.put('/me', function (req, res) {
             });
         }
         else {
-            backend.post('http://xyz.softhouse.se/api/employees/', {
+            backend.post('http://xyz/api/employees/', {
                 data: req.body,
                 headers: {"Content-Type": "application/json"}
             }, function (data, response) {
@@ -47,7 +47,7 @@ app.put('/me', function (req, res) {
 
 
 app.get('/me', function (req, res) {
-    backend.get('http://xyz.softhouse.se/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
+    backend.get('http://xyz/api/employees/?email=' + req.headers['x-forwarded-email'], function (data, response) {
         if (data.length) {
             res.send(data[0]);
         }
@@ -64,7 +64,7 @@ app.get('/:email', function (req, res) {
     if (req.headers['x-forwarded-email'] != email) {
         res.status(401).send({error: 'Unauthorized'});
     }
-    backend.get('http://xyz.softhouse.se/api/employees/?email=' + email, function (data, response) {
+    backend.get('http://xyz/api/employees/?email=' + email, function (data, response) {
         if (data.length) {
             res.send(data[0]);
         }
