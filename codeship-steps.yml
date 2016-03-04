@@ -1,2 +1,2 @@
 - service: module
-  command: bash -x deploy.sh
+  command: bash deploy.sh
