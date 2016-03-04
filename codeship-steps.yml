@@ -1,2 +1,3 @@
 - service: module
+  encrypted_env_file: sshkey.env.encrypted
   command: bash -x deploy.sh
